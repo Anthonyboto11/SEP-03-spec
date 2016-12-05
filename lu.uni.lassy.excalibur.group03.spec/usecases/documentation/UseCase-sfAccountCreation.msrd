@@ -1,0 +1,24 @@
+/*
+@author Axel
+@date Wed Nov 02 13:09:56 CET 2016
+*/
+
+
+@@Use Case Subfunction lu.uni.lassy.excalibur.group03.spec.usecases.sfAccountCreation
+@description ""
+@protocolCondition
+"
+"
+@endProtocolConditions
+@preCondition
+"
+"
+@endPreConditions
+@postCondition
+"
+"
+@endPostConditions
+@additionalInformation
+"
+none
+"

@@ -1,0 +1,10 @@
+/*
+@author Axel
+@date Mon Oct 17 16:43:40 CEST 2016
+*/
+
+
+@@view uc-sfInstaling
+@model Use-Case lu.uni.lassy.excalibur.group03.spec.usecases.sfInstaling 
+@description ""
+@caption ""

@@ -1,0 +1,10 @@
+/*
+@author Axel
+@date Wed Nov 02 13:07:45 CET 2016
+*/
+
+
+@@view uc-sfAccountCreation
+@model Use-Case lu.uni.lassy.excalibur.group03.spec.usecases.sfAccountCreation 
+@description ""
+@caption ""

@@ -1,0 +1,222 @@
+/*
+* @author Axel
+* @date Mon Oct 17 00:39:42 CEST 2016
+*/
+
+package lu.uni.lassy.excalibur.group03.spec.environment {
+
+import lu.uni.lassy.messir.libraries.calendar
+import lu.uni.lassy.messir.libraries.math
+import lu.uni.lassy.messir.libraries.primitives
+import lu.uni.lassy.messir.libraries.string
+
+
+
+Environment Model {
+	
+//////////////  HUMAN ACTORS /////////////////////////////			
+			actor actCreator role rnactCreator cardinality [1..1] {
+			
+				input interface inactCreator {
+				
+				}
+				output interface outactCreator {
+					operation oeCreateSystemAndEnvironement():ptBoolean
+				}
+			}
+			
+			
+			actor actAdministrator role rnactAdministrator cardinality [1..1] {
+			
+				input interface inactAdministrator {
+			
+				}
+				output interface outactAdministrator {
+					operation oeCreateSystemAndEnvironement():ptBoolean
+				}
+			}
+			actor actSecurity role rnactSecurity cardinality [0..*] {
+			
+				input interface inactSecurity {
+			
+				}
+				output interface outactSecurity {
+					oeInvalidateAlert(AdtAlertID:dtAlertID):ptBoolean
+					oeActivateAlarm():ptBoolean
+				}
+			}
+			
+			
+			actor actIntermediate role rnactIntermediate cardinality [0..*] {
+			
+				input interface inactIntermediate {
+			
+				}
+				output interface outactIntermediate {
+					oeInvalidateAlert(AdtAlertID:dtAlertID):ptBoolean
+					oeActivateAlarm():ptBoolean
+				}
+			}
+			
+			actor actBasic role rnactBasic cardinality [0..*] {
+			
+				input interface inactBasic {
+					ieLoginScreen()
+					ieWrongPassword()
+					ieAccountNotFound
+				}
+				output interface outactBasic {
+					oeInvalidateAlert(AdtAlertID:dtAlertID):ptBoolean
+					oeActivateAlarm():ptBoolean
+					oeLoginName():ptString
+					oeLoginPassword():ptString
+					oeLogout():ptBoolean
+					
+				}
+			}
+			
+			
+		
+			
+			
+//////////////////////////NON HUMAN ACTORS////////////////////////////////
+			/////////////////////Trigger Actors///////////////////////////
+			actor actSmokedetector role rnactSmokedetector cardinality [1..*] {
+			
+				input interface inactSmokedetector {
+					operation ieSmokeDetect():ptBoolean
+				}
+				output interface outactSmokedetect {
+					operation oeSmokeDetected():ptBoolean
+					operation oeSmokeDetectorID():ptBoolean
+				}
+			
+			actor actBoutonAlert role rnactBoutonAlert cardinality [1..*]{
+				
+				input interface inactBoutonAlert {}
+				
+				output interface outactBoutonAlert{
+					oeBoutonAlert():ptBoolean
+				}
+			}
+				
+			
+			/////////////////////Safe Actors//////////////////////////////
+			actor actDoordandWindows role rnactDoordandWindows cardinality [1..*] {
+			
+				input interface inactDoordandWindows {
+					operation ieCloseTheDoors():ptBoolean
+				}
+				output interface outactDoordandWindows {
+					operation oeDoorsClosed():ptBoolean
+				}
+			}
+			actor actSmokedetector role rnactSmokedetector cardinality [1..*] {
+			
+				input interface inactSmokedetector {
+					operation ieSmokeDetect():ptBoolean
+				}
+				output interface outactSmokedetect {
+					operation oeSmokeDetected():ptBoolean
+					operation oeSmokeDetectorID():ptBoolean
+				}
+			}
+			
+			actor actAlarm role rnactAlarm cardinality [1..*] {
+			
+				input interface inactAlarm {
+					operation ieActiveAlarm():ptBoolean
+				}
+				output interface outactAlarm {
+					operation oeAlarmActivated():ptBoolean
+				}
+			}
+			
+			actor actSprinkler role rnactSprinkler cardinality [1..*] {
+			
+				input interface inactSprinkler {
+					operation ieSprinklersActivate():ptBoolean
+				}
+				output interface outactSprinkler {
+					operation oeActivateSprinklers():ptBoolean
+				}
+			}
+			
+			actor actLed role rnactLed cardinality [1..*] {
+			
+				input interface inactLed {
+					operation ieActivateLed():ptBoolean
+				}
+				output interface outactLed {
+					operation oeLedActivated():ptBoolean
+				}
+			}
+			
+			actor actSpeaker role rnactSpeaker cardinality [1..*] {
+			
+				input interface inactSpeaker {
+					operation ieActiveSpeaker():ptBoolean
+					operation ieDirectVoice():ptBoolean
+				}
+				output interface outactSpeaker {
+					operation oeAutoSpeak():ptBoolean
+					operation oeDirectVoice():ptBoolean
+				}
+			}
+			
+			actor actProximitySensor role rnactProximtySensor cardinality [1..*] {
+			
+				input interface inactProximtySensor {
+					operation ieProximitySensor():ptBoolean
+				}
+				output interface outactProximtySensor {
+					operation oeProximitySensor():ptBoolean
+					operation oeProximitySensorID():ptBoolean
+				}
+			}
+			/////////////////////ABSTRACT ACTORS//////////////////////////
+			actor actMap role rnactMap cardinality [1..1] {
+			
+				input interface inactMap {
+					operation ieSmokeDetected():ptBoolean
+					operation ieClosedDoors():ptBoolean
+					operation ieProximitySensors():ptBoolean
+				}
+				output interface outactMap {
+					operation oeGraphicalMap():ptBoolean
+					operation oeLedsWay():ptBoolean
+					operation oeActivateSprinklers():ptBoolean
+				}
+			}
+			
+			actor actTimer role rnactTimer cardinality [1..1] {
+			
+				input interface inactTimer {
+			
+				}
+				output interface outactTimer {
+					proactive operation oeSetClock(AcurrentClock: dtDateAndTime):ptBoolean
+					
+				}
+			}
+			
+			
+			actor actAuthenticated role rnactAuthenticated [] {
+				
+				input interface inactAuthenticated{
+					ieMessage(AMessage:ptString):ptBoolean
+										
+					}
+				
+				output interface inactAuthenticated{}
+					oeLogin(AdtLogin:dtLogin, AdtPassword:dtPassword):ptBoolean
+					oeLogout():ptBoolean
+					}
+				}
+				
+			
+}
+			
+}
+
+

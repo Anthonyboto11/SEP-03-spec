@@ -1,0 +1,341 @@
+/*
+* @author Axel
+* @date Mon Oct 17 00:39:41 CEST 2016
+*/
+
+package lu.uni.lassy.excalibur.group03.spec.usecases {
+
+import lu.uni.lassy.messir.libraries.calendar
+import lu.uni.lassy.messir.libraries.math
+import lu.uni.lassy.messir.libraries.primitives
+import lu.uni.lassy.messir.libraries.string
+import lu.uni.lassy.excalibur.group03.spec.environment
+
+
+	Use Case Model {
+		
+		use case system summary suDeployandRun() {
+			actor actAdministrator[primary,active]
+			actor actCreator[secondary, passive]
+			actor actTimer[secondary, proactive]
+			
+			
+			reuse oeCreateSystemAndEnvironement[1..1]
+			reuse ugAdministrateTheSystem[1..*]
+			//reuse suGlobalCrisisHandling[1..*]
+			reuse oeSetClock[1..*]
+			//reuse oeSolicitateCrisisHandling[0..*]
+			//reuse oeAlert[1..*]
+			
+			step a: actCreator executes oeCreateSystemAndEnvironement
+			step b: actAdministrator executes ugAdministrateTheSystem
+			step c: actTimer executes oeSetClock
+		}
+		
+		use case system summary suEmergencyState(){
+			actor actAdministrator[primary, active]
+			actor actIntermediate[primary, active]
+			actor actSecurity[primary, active]
+			actor actAlarm[secondary, passive]
+			actor actTimer[secondary, proactive]
+			actor actMap[secondary]
+			actor actDoordandWindows[secondary, passive]
+			actor actProximitySensor[secondary, active]
+			
+			reuse ugActivateEmergencyState[1..*]
+			reuse ugMapping[1..*]
+			reuse oeSetClock[1..*]
+			reuse oeAutoSpeak[1..*]
+			
+			step a: ugActivateEmergencyState
+			
+			
+		}
+		
+		use case system summary suFakeEmergencyState(){
+			
+		}
+		
+		use case system usergoal ugMapping(){
+			actor actMap [primary, active]
+			actor actProximitySensor [secondary, active]
+			actor actSmokedetector [secondary, active]
+			actor actSprinkler [secondary, active]
+			actor actLed [secondary, active]
+			
+		}
+		
+		use case system usergoal ugActivateEmergencyState(){
+			actor actBasic [primary, active]
+			actor actIntermediate [primary, active]
+			actor actSmokedetector[primary, proactive]
+			actor actBoutonAlert [primary, proactive]
+			
+			reuse oeActivateAlarm [0..*]
+			reuse oeSmokeDetected[0..*]
+			
+			
+			returned messages{
+				Fire_Detected returned to system
+			}
+			
+			
+		}
+		
+		use case system usergoal ugAdministrateTheSystem() {
+			actor actAdministrator[primary, active]
+			
+			
+		}
+		
+		use case system summary suBasicLifeCycle(){
+			actor actBasic[primary, active]
+			
+			reuse ugLoginScreen
+			reuse ugPrincipalScreen
+			reuse ug
+		}
+		use case system usergoal ugLogin{
+			
+		}
+		
+		use case system usergoal ugLoginScreen{
+			actor actBasic [primary, active]
+			
+			reuse oeLoginName[0..*]
+			reuse oeLoginPassword[0..*]
+			reuse ieLoginScreen[0..*]
+			reuse ieWrongPassWord[0..*]
+			reuse ieAccountNotFound[0..*]
+		}
+		
+		///////////////////SUBFUNCTIONS//////////////
+		
+		use case system subfunction oeLoginName{
+			actor actBasic[primary, active]
+			
+			returned messages{
+				LoginName returned to system
+			}
+		}
+		
+		use case system subfunction oeLoginPassword{
+			actor actBasic[primary, active]
+			
+			returned messages{
+				LoginPasword returned to system
+			}
+		} 
+		
+		use case system subfunction ieLoginScreen{
+			actor actBasic [primary, passive]
+			
+			returned messages{
+				LoginScreen returned to actBasic
+			}
+		}
+		
+		use case system subfunction ieWrongPassword{
+			actor actBasic[primary, passive]
+			
+			returned messages{
+				WrongPassword returned to actBasic
+			}
+		}
+		
+		use case system subfuncton ieAccountNotFound{
+			actor actBasic[primary, passive]
+			
+			returned messages{
+				AccountNotFound returned to actBasic
+			}
+		}
+		
+		
+		use case system subfunction oeCreateSystemAndEnvironement(){
+			actor actAdministrator[primary, active]
+			
+		}
+		
+		
+		
+		
+		use case system subfunction oeSmokeDetected() {		
+				
+			actor actSmokedetector[primary, active]
+			actor actMap[secondary, passive]
+			actor actEmergencyState[secondary, passive]		
+				
+			returned messages {
+				Smokedetected returned to actEmergencyState				
+				SmokeDetectorID returned to actMap
+			}
+		}
+		
+		
+		
+		use case system subfunction oeAutoSpeak() {
+			actor actSpeaker[primary,active]
+			
+			returned messages {
+				Speaking returned to actSpeaker
+			}
+		}
+		
+		use case system subfunction ieSpeak(){
+			actor actIntermediate [primary, active]
+			actor actSpeaker [secondary, passive]
+			
+			returned messages{
+				Speak returned to actSpeaker
+			}
+		}
+		
+		use case system subfunction oeSpeak(){
+			actor actIntermediate [primary, active]
+			actor actSpeaker [secondary, passive]
+			
+			returned messages{
+				Speak returned to system
+			}
+		}
+		
+		
+		use case system subfunction oeMovementdetecting() {
+			actor actProximtySensor[primary,active]
+			actor actMap[secondary, passive]
+			returned messages {
+				searching_for_mouvement returned to actMap
+			}
+		}
+		
+		use case system subfunction sfAccountCreation() {
+			actor actBasic[primary,active]
+			actor actAdministrator[secondary, passive]
+			returned messages {
+				CreatingAccount returned to actAdministrator
+			}
+		}
+		
+		use case system subfunction sfActivateEmergencyState() {
+			actor actBasic[primary,active]
+			returned messages {
+				EmergencyState returned to actEmergencyState
+			}
+		}
+		
+		use case system subfunction oeAlarmActivated() {
+			actor actAlarm[primary,active]
+			actor actEmergencyState[secondary, passive]
+			returned messages {
+				AlarmOn returned to actAlarm
+			}
+		}
+		
+		use case system subfunction oeLedActivated() {
+			actor actLed[primary,active]
+			actor actMap[secondary, passive]
+			returned messages {
+				LedActivated returned to system
+				
+			}
+		}
+		
+		use case subfunction ieActivateLed(){
+			actor actLed[primary, active]
+			
+			returned message{
+				ActivateLed returned to actLed
+			}
+		}
+		
+		use case system subfunction oeSprinklersActivate() {
+			actor actSprinkler[primary,active]
+			actor actMap[secondary, passive]
+			returned messages {
+				SprinklersOn returned to actSprinkler
+				
+			}
+		}
+		
+		
+		use case system subfunction oeDoorsClosed() {
+			actor actDoordandWindows[primary,active]
+			actor actEmergencyState[secondary, passive]
+			actor actMap[secondary, passive]
+			returned messages {
+				closeDoorsAndWindows returned to actDoordandWindows
+			}
+		}
+		
+		use case system subfunction oeSetClock(){
+			actor actTimer[primary, proactive]
+		}
+		
+		use case subfunction oeLogin(){
+			actor actBasic
+			actor actIntermediated
+			actor actAthenticated
+			returned messages{
+				trylogin returned to actAuthenticated
+				
+			}
+			
+		}
+		
+		use case subfunction ieLogin(){
+			actor actBasic[primary, active]
+			actor actIntermediated[primary, active]
+			actor actAuthenticated
+			returned messages{
+				LogedIn returned to actBasic
+				LogedIn returned to actIntermediated
+			}
+		}
+		
+		use case subfunction oeLogout(){
+			actor actBasic
+			actor actIntermediated
+			actor actAuthenticated
+			returned messages{
+				TryLogOut returned to actAuthenticated				
+			}
+		}
+		
+		use case subfunction ieLogout(){
+			actor actBasic
+			actor actIntermediated
+			actor actAuthenticated
+			returned messages{
+				LogOut returned to actBasic
+				LogOut returned to actAuthenticated
+			}
+		}
+		
+		use case subfunction oeAskForMap(){
+			actor actBasic
+			actor actIntermediated
+			actor actSecurity
+			
+			returned messages{
+				AskforMap returned to system
+			}
+		}
+		
+		use case subfunction ieShowMap(){
+			actor actBasic
+			actor actIntermediated
+			actor actSecurity
+			
+			returned messages{
+				TheMap returned to actBasic, Intermedated, Security
+			}
+		}
+		
+		
+		
+	}
+	
+	
+
+}

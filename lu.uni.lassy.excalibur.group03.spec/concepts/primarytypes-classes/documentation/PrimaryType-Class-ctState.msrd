@@ -1,0 +1,16 @@
+/*
+@author Axel
+@date Wed Nov 02 13:09:37 CET 2016
+*/
+
+
+@@Primary Type Class lu.uni.lassy.excalibur.group03.spec.concepts.primarytypes.classes.ctState
+@description ""
+@attribute
+lu.uni.lassy.excalibur.group03.spec.concepts.primarytypes.classes.ctState.vpStarted
+""
+@endAttributes
+@operation
+lu.uni.lassy.excalibur.group03.spec.concepts.primarytypes.classes.ctState.init
+""
+@endOperations
